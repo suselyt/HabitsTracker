@@ -11,6 +11,7 @@ namespace Habits
         public string Name { get; set; }
         public string Category { get; set; }
         public string Time { get; set; }
+        public string Repeat { get; set; }
 
     }
 }
