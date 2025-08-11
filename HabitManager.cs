@@ -10,7 +10,8 @@ namespace Habits
 {
     public class HabitManager
     {
-        private readonly string _filepath = "habits.json";
+        private readonly string _filepath = 
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "habits.json");
         public List<Habit> Habits { get; private set; }
 
         public HabitManager()
@@ -45,15 +46,15 @@ namespace Habits
             SaveHabits();
         }
 
-        public void EditHabit(string habitName, Habit newHabit)
+        public void EditHabit(string habitId, Habit habitUpdated)
         {
-            var habit = Habits.FirstOrDefault(h => h.Name == habitName);
-            if (habit != null)
-            {
-                int index = Habits.IndexOf(habit);
-                Habits[index] = newHabit;
-                SaveHabits();
-            }
+            int index = Habits.FindIndex(h => h.Id == habitId);
+            if (index == -1) return;
+
+            habitUpdated.Id = Habits[index].Id;
+
+            Habits[index] = habitUpdated;
+            SaveHabits();
         }
     }
 }
